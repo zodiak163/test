@@ -2,8 +2,8 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+  options:
+    dockerfile: Dockerfile.j2
 platforms:
   - name: instance
     image: ubuntu:bionic
@@ -11,7 +11,7 @@ platforms:
 provisioner:
   name: ansible
   lint:
-    name: ansible-lint
+    name: yamllint
   inventory:
     host_vars:
       instance:
@@ -25,13 +25,3 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-test:
-  image: ubuntu:bionic
-  lint:
-    name: flake8
-  commands:
-    - molecule test
-build:
-  image: ubuntu:bionic
-  commands:
-    - docker build -t my-image .
