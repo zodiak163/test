@@ -1,4 +1,3 @@
----
 dependency:
   name: galaxy
 driver:
@@ -26,3 +25,13 @@ verifier:
   name: testinfra
   lint:
     name: flake8
+test:
+  image: ubuntu:bionic
+  lint:
+    name: flake8
+  commands:
+    - molecule test
+build:
+  image: ubuntu:bionic
+  commands:
+    - docker build -t my-image .
