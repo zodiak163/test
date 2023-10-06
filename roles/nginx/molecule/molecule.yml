@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: ubuntu:bionic
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    host_vars:
+      instance:
+        ansible_connection: docker
+        ansible_python_interpreter: /usr/bin/python3
+  playbooks:
+    converge: roles/nginx/molecule.yml
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
